@@ -12,21 +12,23 @@ class UntitledTestCase(unittest.TestCase):
     
     def test_add_group(self):
         wd = self.wd
-        self.login(wd, username="admin", password="secret")
-        self.create_group(wd, Group (name="name", logo="logo", comment="comment"))
-        self.logout(wd)
+        self.login(username="admin", password="secret")
+        self.create_group(Group (name="name", logo="logo", comment="comment"))
+        self.logout()
 
     def test_empty_group(self):
         wd = self.wd
-        self.login(wd, username="admin", password="secret")
-        self.create_group(wd, Group (name="", logo="", comment=""))
-        self.logout(wd)
+        self.login(username="admin", password="secret")
+        self.create_group(Group (name="", logo="", comment=""))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def create_group(self, wd, group):
+    def create_group(self, group):
         #create new group
+        wd = self.wd
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
@@ -42,8 +44,9 @@ class UntitledTestCase(unittest.TestCase):
         wd.find_element_by_link_text("group page").click()
 
 
-    def login(self, wd, username, password):
+    def login(self, username, password):
         #login
+        wd = self.wd
         wd.get("http://localhost/addressbook/")
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
