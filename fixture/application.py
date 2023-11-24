@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from fixture.session import SessionHelper
 
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper(self)
     def test_add_group(self):
         wd = self.wd
         self.login(username="admin", password="secret")
@@ -27,18 +29,6 @@ class Application:
                                 byear="1990", ayear="2020", address2="address2", phone2="home2", notes="notes"))
         self.logout()
 
-    def login(self, username, password):
-        #login
-        wd = self.wd
-        wd.get("http://localhost/addressbook/")
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_id("LoginForm").click()
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def create_group(self, group):
         #create new group
@@ -56,9 +46,6 @@ class Application:
         wd.find_element_by_name("group_footer").send_keys(group.comment)
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("group page").click()
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
 
     def add_contact(self, contact, none_="'[none]'"):
         wd = self.wd
