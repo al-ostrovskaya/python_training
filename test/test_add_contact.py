@@ -1,15 +1,8 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from fixture.application import Application
-import pytest
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 def test_add_contact(app):
+        app.open_home_page()
         app.session.login("admin", "secret")
         app.contact.add(Contact(firstname="firstname", middlename="middlename", lastname="lastname",
                                 nickname="nickname", title="title", company="company", address="address",

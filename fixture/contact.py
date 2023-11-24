@@ -17,7 +17,6 @@ class ContactHelper:
     def add(self, contact, none_="'[none]'"):
         wd = self.app.wd
         Select = self.app.Select
-        wd.get("http://localhost/addressbook/")
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
