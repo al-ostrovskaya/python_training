@@ -97,12 +97,14 @@ class ContactHelper:
 
     def del_first_contact (self):
         wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
 
     def modify_first_contact(self):
         wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         wd.find_element_by_name("firstname").click()
